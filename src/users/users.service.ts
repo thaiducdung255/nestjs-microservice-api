@@ -1,10 +1,8 @@
 import { ClientProxy, ClientProxyFactory, Transport } from '@nestjs/microservices'
-import { Injectable, NotFoundException } from '@nestjs/common'
+import { Injectable } from '@nestjs/common'
 import { User } from './schemas/user.schema'
 import { CreateUserDto } from './dto/create-user.dto'
 import { UpdateUserDto } from './dto/update-user.dto'
-import { randomBytes } from 'crypto'
-
 
 @Injectable()
 export class UsersService {
@@ -20,55 +18,23 @@ export class UsersService {
     })
   }
 
-  create(createUserDto: CreateUserDto): Promise<User> {
-    const salt: string = randomBytes(20).toString('hex')
-    const createdUser = new this.userModel({ ...createUserDto, salt })
-    return createdUser.save()
+  public createOne(createUserDto: CreateUserDto) {
+    return this.client.send<User, CreateUserDto>('create-user', createUserDto)
   }
 
-  async getAll(): Promise<User[]> {
-    return this.userModel.find()
+  public getAll(_) {
+    return this.client.send<User[]>('get-all-users', _)
   }
 
-  async getOne(id: string): Promise<User> {
-    const FOUND_USER = await this.userModel.findOne({
-      _id: id
-    })
-
-    if (FOUND_USER) {
-      return FOUND_USER
-    }
-
-    throw new NotFoundException(`User #${id} does not exists`)
+  public getOne(id: string) {
+    return this.client.send<User, string>('get-one-user', id)
   }
 
-  async updateOne(id: string, updateUserDto: UpdateUserDto): Promise<User> {
-    const UPDATED_USER = await this.userModel.findOneAndUpdate(
-      {
-        _id: id
-      },
-      {
-        $set: updateUserDto
-      },
-      {
-        new: true
-      }
-    )
-
-    if (UPDATED_USER) {
-      return UPDATED_USER
-    }
-
-    throw new NotFoundException(`User #${id} does not exists`)
+  public deleteOne(id: string) {
+    return this.client.send<User, string>('delete-one-user', id)
   }
 
-  async deleteOne(id: string): Promise<User> {
-    const DELETED_USER = await this.userModel.findOneAndDelete({ _id: id })
-
-    if (DELETED_USER) {
-      return DELETED_USER
-    }
-
-    throw new NotFoundException(`User #${id} does not exists`)
+  public updateOne(id: string, updateUserDto: UpdateUserDto) {
+    return this.client.send<User, UpdateUserDto>('update-one-user', updateUserDto)
   }
 }
