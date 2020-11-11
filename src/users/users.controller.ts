@@ -13,23 +13,23 @@ export class UsersController {
     this.usersService.createOne(createUserDto)
   }
 
-  @Get()
-  getAll(_) {
-    return this.client.send<User[]>('get-all-users', _)
-  }
+  // @Get('/')
+  // getAll() {
+  //   return this.usersService.getAll()
+  // }
 
-  @Get()
-  getOne(id: string) {
-    return this.client.send<User, string>('get-one-user', id)
-  }
+  // @Get('/:id')
+  // getOne() {
+  //   return this.client.send<User, string>('get-one-user', id)
+  // }
 
-  @Delete()
-  deleteOne(id: string) {
-    return this.client.send<User, string>('delete-one-user', id)
-  }
+  // @Delete('/:id')
+  // deleteOne(id: string) {
+  //   return this.client.send<User, string>('delete-one-user', id)
+  // }
 
-  @Patch()
-  updateOne(id: string, updateUserDto: UpdateUserDto) {
-    return this.client.send<User, UpdateUserDto>('update-one-user', updateUserDto)
-  }
+  // @Patch('/:id')
+  // updateOne(id: string, updateUserDto: UpdateUserDto) {
+  //   return this.client.send<User, UpdateUserDto>('update-one-user', updateUserDto)
+  // }
 }
