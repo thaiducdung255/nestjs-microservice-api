@@ -7,13 +7,13 @@ import {
 
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
-import { UsersModule } from './users/users.module'
+import { UsersService } from './users/users.service';
 import { LoggerMiddleware } from './common/middleware/loger.middleware'
 
 @Module({
-  imports: [UsersModule],
+  imports: [],
   controllers: [AppController],
-  providers: [AppService],
+  providers: [AppService, UsersService],
 })
 
 export class AppModule implements NestModule {

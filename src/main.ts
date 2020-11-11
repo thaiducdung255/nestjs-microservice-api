@@ -25,7 +25,7 @@ async function bootstrap() {
     forbidUnknownValues: true,
   }))
 
-  await app.listen(3000, '0.0.0.0');
+  await app.listen(3000, '0.0.0.0', () => process.stdout.write('API gateway is online\n'));
 }
 
 bootstrap();
