@@ -27,14 +27,6 @@ async function bootstrap() {
   }))
 
   await app.listen(3000, '0.0.0.0', () => process.stdout.write('API gateway is online\n'));
-  const client = ClientProxyFactory.create({
-    transport: Transport.TCP,
-    options: {
-      host: '127.0.0.1',
-      port: 3727,
-    }
-  })
-  client.send<any, any>({ cmd: 'create-user' }, {}).subscribe(res => console.log({ res }))
 }
 
 bootstrap();

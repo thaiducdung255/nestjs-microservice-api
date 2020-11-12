@@ -1,4 +1,4 @@
-import { Controller, Body, Post, Get, Patch, Delete } from '@nestjs/common'
+import { Controller, Body, Param, Post, Get, Patch, Delete } from '@nestjs/common'
 import { User } from './schemas/user.schema'
 import { UsersService } from './users.service'
 import { CreateUserDto } from './dto/create-user.dto'
@@ -13,23 +13,23 @@ export class UsersController {
     this.usersService.createOne(createUserDto)
   }
 
-  // @Get('/')
-  // getAll() {
-  //   return this.usersService.getAll()
-  // }
+  @Get('/')
+  getAll() {
+    return this.usersService.getAll(true)
+  }
 
-  // @Get('/:id')
-  // getOne() {
-  //   return this.client.send<User, string>('get-one-user', id)
-  // }
+  @Get('/:id')
+  getOne(@Param('id') id: string) {
+    return this.usersService.getOne(id)
+  }
 
-  // @Delete('/:id')
-  // deleteOne(id: string) {
-  //   return this.client.send<User, string>('delete-one-user', id)
-  // }
+  @Delete('/:id')
+  deleteOne(@Param('id') id: string) {
+    return this.usersService.deleteOne(id)
+  }
 
-  // @Patch('/:id')
-  // updateOne(id: string, updateUserDto: UpdateUserDto) {
-  //   return this.client.send<User, UpdateUserDto>('update-one-user', updateUserDto)
-  // }
+  @Patch('/:id')
+  updateOne(@Param('id') id: string, @Body() updateUserDto: UpdateUserDto) {
+    return this.usersService.updateOne(id, updateUserDto)
+  }
 }

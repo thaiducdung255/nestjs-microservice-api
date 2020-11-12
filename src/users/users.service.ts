@@ -19,23 +19,28 @@ export class UsersService {
   }
 
   public createOne(createUserDto: CreateUserDto) {
-    console.log('send req to micro service')
-    return this.client.send<User, CreateUserDto>('create-user', createUserDto)
+    return this.client.send<User, CreateUserDto>({ cmd: 'create-user' }, createUserDto)
   }
 
-  // public getAll() {
-  //   return this.client.send<User[]>('get-all-users')
-  // }
+  public getAll(_: boolean) {
+    return this.client.send<User[], boolean>({ cmd: 'get-all-users' }, _)
+  }
 
-  // public getOne(id: string) {
-  //   return this.client.send<User, string>('get-one-user', id)
-  // }
+  public getOne(id: string) {
+    return this.client.send<User, string>({ cmd: 'get-one-user' }, id)
+  }
 
-  // public deleteOne(id: string) {
-  //   return this.client.send<User, string>('delete-one-user', id)
-  // }
+  public deleteOne(id: string) {
+    return this.client.send<User, string>({ cmd: 'delete-one-user' }, id)
+  }
 
-  // public updateOne(id: string, updateUserDto: UpdateUserDto) {
-  //   return this.client.send<User, UpdateUserDto>('update-one-user', updateUserDto)
-  // }
+  public updateOne(id: string, updateUserDto: UpdateUserDto) {
+    return this.client.send<User, any>({
+      cmd: 'update-one-user'
+    },
+    {
+      id,
+      updateUserDto
+    })
+  }
 }

@@ -20,14 +20,14 @@ GET /users
 # create new user
 POST /users
 {
-  "username": "DUNGTD27",
+  "username": "DUNGTD21",
   "password": "newpass",
   "age": 22
 }
 
 --
 # get one user by id
-GET /users/5f5b2c46c6911ca40882e9fc
+GET /users/5fad61e2df5e562c6cd8f04a
 
 --
 # update one user by id
@@ -39,4 +39,4 @@ PATCH /users/5f5b2c46c6911ca40882e9fc
 
 --
 # delete one user by id
-DELETE /users/5f5affdb95730b2d3115c3fb
+DELETE /users/5fad61e2df5e562c6cd8f04a
